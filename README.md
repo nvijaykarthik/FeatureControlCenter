@@ -1,4 +1,4 @@
-# FlexiFeature
+# FCC
 
  Flexi feature is feature management application in enterprise level,  it is simple to use and it has UI to control the features.
  In the scaled agile environment Features and Capabilities is important aspect to consider.
