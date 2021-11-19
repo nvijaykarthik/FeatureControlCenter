@@ -1,0 +1,4 @@
+rootProject.name = 'FeatureControlCenter'
+
+include 'fccserver'
+include 'fccclient'
