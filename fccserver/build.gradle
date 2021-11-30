@@ -16,6 +16,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.cronutils:cron-utils:9.1.6'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

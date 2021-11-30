@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.util.CollectionUtils;
 
-import in.nvijaykarthik.fccserver.actionservice.FeatureActionProcessingService;
+import in.nvijaykarthik.fccserver.actionservice.FeatureActionProcessingFactory;
 import in.nvijaykarthik.fccserver.entity.FeatureActivationConfig;
 import in.nvijaykarthik.fccserver.repository.FeatureActivationConfigRepo;
 
 public class FeatureProcessingService {
    
     FeatureActivationConfigRepo activationConfigRepo;
-    FeatureActionProcessingService actionProcessingService;
+    FeatureActionProcessingFactory actionProcessingService;
     
     public FeatureProcessingService(FeatureActivationConfigRepo activationConfigRepo){
-        this.actionProcessingService=new FeatureActionProcessingService();
+        this.actionProcessingService=new FeatureActionProcessingFactory();
         this.activationConfigRepo=activationConfigRepo;
     }
 

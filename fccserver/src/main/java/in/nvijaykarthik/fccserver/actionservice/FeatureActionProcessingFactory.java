@@ -5,11 +5,11 @@ import java.util.Map;
 
 import in.nvijaykarthik.fccserver.entity.FeatureActivationConfig;
 
-public class FeatureActionProcessingService {
+public class FeatureActionProcessingFactory {
 
     private Map<String,FCCActionProcessor> actionMap= new HashMap<>();
 
-    public FeatureActionProcessingService(){
+    public FeatureActionProcessingFactory(){
         actionMap.put("always",new FccAlwaysActionProcessor());
         actionMap.put("period",new FccPeriodActionProcessor());
         actionMap.put("scheduled",new FccScheduledActionProcessor());

@@ -10,13 +10,13 @@ import in.nvijaykarthik.fccserver.service.FeatureProcessingService;
 
 @RestController
 @RequestMapping("/api")
-public class FeatureVerificationControl {
+public class FeatureActionController {
     
     @Autowired
     FeatureProcessingService featureProcessingService; 
 
     @GetMapping("/isFeatureActive")
-    public boolean isFeatureActive(@RequestParam String featureName){
+    public boolean isFeatureActive(@RequestParam(name = "featureName") String featureName){
         return featureProcessingService.process(featureName);
     }
 }
