@@ -1,10 +1,7 @@
 package in.nvijaykarthik.fccserver.actionservice;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.temporal.Temporal;
 
-import com.cronutils.model.Cron;
 import com.cronutils.model.CronType;
 import com.cronutils.model.definition.CronDefinition;
 import com.cronutils.model.definition.CronDefinitionBuilder;
@@ -13,7 +10,6 @@ import com.cronutils.parser.CronParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import in.nvijaykarthik.fccserver.actionservice.domain.FccPeriod;
 import in.nvijaykarthik.fccserver.actionservice.domain.FccScheduled;
 
 public class FccScheduledActionProcessor implements FCCActionProcessor {
