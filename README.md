@@ -1,5 +1,5 @@
 # FCC
-
+ ------ Under development not yet ready  --------
  Flexi feature is feature management application in enterprise level,  it is simple to use and it has UI to control the features.
  In the scaled agile environment Features and Capabilities is important aspect to consider.
  
@@ -18,11 +18,10 @@ for more detalils https://www.scaledagileframework.com/features-and-capabilities
 ## Available Features 
 1.  Enterprise level feature management
 2.  Control the features at Portfolio level
-3.  Create new Feature, Registering the application , creating group of applications etc., so that features can be shared across 
+3.  Create new Feature, Add impacted service,configure the action strategy.
 4.  Ability to provide the all active features
-5.  Ability to provide return the given feature is active or not. 
+5.  Ability to return the given feature is active or not. 
 6.  UI to control/manage the features.
 7.  Activate and Deactivate the feature
-8.  Activate and Deactivate the feature in periodic level using (cron)
-9.  Apply the feature to a portfolio level , single or Set of applications , single or set of application group, etc.,
-10. Migration to higher environment is via propagation no need to recreate the settings again other env. 
+8.  Activate and Deactivate the feature in periodic level or scheduled the feature activation time.
+9.  Migration to higher environment is via propagation no need to recreate the settings again other env. (experiment level)
