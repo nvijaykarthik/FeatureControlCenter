@@ -1,10 +1,12 @@
 # FCC
  ------ Under development not yet ready  --------
+ 
  Flexi feature is feature management application in enterprise level,  it is simple to use and it has UI to control the features.
  In the scaled agile environment Features and Capabilities is important aspect to consider.
  
  ```
 Features and Capabilities ( details in from Scaled Agile, Inc.)
+
  A Feature is a service that fulfills a stakeholder need. Each feature includes a benefit hypothesis and acceptance criteria, and is sized or split as necessary to be delivered by a single Agile Release Train (ART) in a Program Increment (PI).
  
  A Capability is a higher-level solution behavior that typically spans multiple ARTs. Capabilities are sized and split into multiple features to facilitate their implementation in a single PI. Features also lend themselves to the Lean UX process model, which includes a definition of the Minimum Marketable Feature (MMF), a benefit hypothesis, and acceptance criteria.
