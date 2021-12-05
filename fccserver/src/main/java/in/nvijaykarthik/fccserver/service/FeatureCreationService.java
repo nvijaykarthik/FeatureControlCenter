@@ -1,5 +1,7 @@
 package in.nvijaykarthik.fccserver.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class FeatureCreationService {
     }
 
     public FeatureServiceXref addImpactedService(FeatureServiceXref features){
+        features.setCreatedDate(LocalDateTime.now());
         return featureServiceXrefRepo.save(features);
     }
 
@@ -33,6 +36,7 @@ public class FeatureCreationService {
     }
 
     public FeatureActivationConfig saveActiveConfguration(FeatureActivationConfig features){
+        features.setCreatedDate(LocalDateTime.now());
         return activationConfigRepo.save(features);
     }
 }

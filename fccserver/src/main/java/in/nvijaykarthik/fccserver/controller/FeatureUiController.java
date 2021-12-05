@@ -1,5 +1,6 @@
 package in.nvijaykarthik.fccserver.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,14 @@ public class FeatureUiController {
     @Autowired
     FeatureListService featureListService; 
 
-    @GetMapping("/getFeatures")
-    public Iterable<Features> getFeatures(@RequestParam Integer page, @RequestParam(required = false) Integer size){
+    @GetMapping("/getFeaturesPaged")
+    public Iterable<Features> getFeaturesPaged(@RequestParam Integer page, @RequestParam(required = false) Integer size){
         return featureListService.getFeatures(page, size);
+    }
+
+    @GetMapping("/getFeatures")
+    public Iterable<Features> getFeatures(){
+        return featureListService.getFeatures();
     }
 
     @GetMapping("/getImpactedServices")
@@ -42,6 +48,7 @@ public class FeatureUiController {
 
     @PostMapping("/saveFeatures")
     public Features saveFeature(@RequestBody Features features){
+        features.setCreatedDate(LocalDateTime.now());
         return featureCreationService.saveFeature(features);
     }
 

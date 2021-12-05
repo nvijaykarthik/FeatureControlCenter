@@ -41,6 +41,13 @@ public class FeatureListService {
         return features;
     }
 
+    public Iterable<Features> getFeatures(){
+        Iterable<Features> features= featuresRepo.findAll();
+        logger.debug("Getting features {}",features);
+        return features;
+    }
+
+
     public List<FeatureServiceXref> getImpactedServices(String featureName){
         List<FeatureServiceXref> impactedService= featureServiceXrefRepo.findByFeatureName(featureName);
         logger.debug("Impacted service {}",impactedService);
