@@ -19,11 +19,7 @@ public class FeatureProcessingService {
     }
 
     public boolean process(String featureName) {
-        List<FeatureActivationConfig> configs= activationConfigRepo.findByFeatureName(featureName);
-        if(CollectionUtils.isEmpty(configs)){
-            return false;
-        }
-        FeatureActivationConfig config=configs.get(0);
+       FeatureActivationConfig config= activationConfigRepo.findByFeatureName(featureName);
        return actionProcessingService.process(config);
     }
     

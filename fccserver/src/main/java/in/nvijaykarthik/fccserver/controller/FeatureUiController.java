@@ -42,7 +42,7 @@ public class FeatureUiController {
     }
 
     @GetMapping("/getActivationConfig")
-    public List<FeatureActivationConfig> getFeatureActivationConfig(@RequestParam String featureName){
+    public FeatureActivationConfig getFeatureActivationConfig(@RequestParam String featureName){
         return featureListService.getFeatureActivationConfig(featureName);
     }
 

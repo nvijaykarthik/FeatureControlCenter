@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Card, Col, Row, Button, InputGroup, FormControl, Table, Form, Alert, Modal } from 'react-bootstrap';
 import axios from "axios";
+import { SERVICE_DOMAIN } from './Constants';
 
 
 
@@ -11,6 +12,8 @@ export default class ImpactedServices extends Component {
         show: false,
         impactedServices: [],
         servicename: "",
+        impsearch:"",
+        filteredImpactedService:[]
     }
 
 
@@ -19,17 +22,18 @@ export default class ImpactedServices extends Component {
     }
     handleShow = () => {
         if(this.state.featureName===""){
-            alert("Please save/select the feature add impacted Service")
+            alert("Please save/select the feature and add impacted Service")
             return 
         }
         this.setState({ servicename: "", show: true });
     }
 
     getImpactedService(fname){
-        axios.get("http://localhost:9000/api/getImpactedServices?featureName=" + fname).then(
+        axios.get(SERVICE_DOMAIN+"/api/getImpactedServices?featureName=" + fname).then(
             resp => {
                 this.setState({
                     impactedServices: resp.data,
+                    filteredImpactedService:resp.data,
                     featureName:fname
                 })
             },
@@ -50,6 +54,10 @@ export default class ImpactedServices extends Component {
     onServiceNameChange(e) {
         this.setState({ servicename: e.target.value })
     }
+
+    searchOnchange(e) {
+        this.setState({ impsearch: e.target.value })
+    }
     saveImpactedService() {
 
         let fname = this.state.featureName;
@@ -61,7 +69,7 @@ export default class ImpactedServices extends Component {
             featureName: fname,
             serviceName: serviceName
         }
-        axios.post("http://localhost:9000/api/addImpactedService", data).then(
+        axios.post(SERVICE_DOMAIN+"/api/addImpactedService", data).then(
             resp => {
                 console.log(resp.data)
                 this.setState({
@@ -74,7 +82,26 @@ export default class ImpactedServices extends Component {
             }
         )
     }
-
+    onSearchClick(){
+        let list=this.state.filteredImpactedService
+      if(this.state.impsearch!==""){
+        list=this.state.impactedServices.filter(data=>data.serviceName.includes(this.state.impsearch));
+      }
+      this.setState({impactedServices:list})
+    }
+    remove(dt){
+        console.log(dt)
+        axios.post(SERVICE_DOMAIN+"/api/removeImpactedService", dt).then(
+            resp => {
+                console.log(resp.data)
+                this.getImpactedService(this.state.featureName)
+            },
+            err => {
+                console.error(err)
+            }
+        )
+        
+    }
     render() {
         let rowdt = null;
         if (this.state.impactedServices != null) {
@@ -83,8 +110,8 @@ export default class ImpactedServices extends Component {
                     <td>{i + 1}</td>
                     <td>{dt.serviceName}</td>
                     <td align="right">
-                        <Button variant="danger" id="button-addon2">
-                            <i class="fas fa-trash"></i>
+                        <Button variant="danger" id="button-addon2" onClick={()=>this.remove(dt)}>
+                            <i className="fas fa-trash"></i>
                         </Button>
                     </td>
                 </tr>);
@@ -98,13 +125,13 @@ export default class ImpactedServices extends Component {
                         <Card.Title><h5>Impacted Service</h5></Card.Title>
                         <InputGroup className="mb-3">
                             <FormControl
-                                placeholder="Filter"
+                                placeholder="Filter" onChange= {(e)=>this.searchOnchange(e)} value={this.state.impsearch}
                             />
-                            <Button variant="info" id="button-addon2">
-                                <i class="fas fa-search"></i>
+                            <Button variant="info" id="button-addon2" onClick={this.onSearchClick}>
+                                <i className="fas fa-search"></i>
                             </Button>
                             <Button variant="primary" id="button-addon2" onClick={this.handleShow}>
-                                <i class="fas fa-plus-circle"></i>
+                                <i className="fas fa-plus-circle"></i>
                             </Button>
                         </InputGroup>
                         <Table striped hover size="sm">
@@ -126,7 +153,7 @@ export default class ImpactedServices extends Component {
                                 value={this.state.servicename}
                             />
                             <Button variant="info" id="button-addon2" onClick={()=>this.saveImpactedService()}>
-                                <i class="fas fa-save"></i>
+                                <i className="fas fa-save"></i>
                             </Button>
                         </InputGroup>
                     </Modal.Body>

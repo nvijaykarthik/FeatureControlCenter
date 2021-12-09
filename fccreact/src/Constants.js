@@ -1,0 +1,1 @@
+export const SERVICE_DOMAIN="http://localhost:9000"

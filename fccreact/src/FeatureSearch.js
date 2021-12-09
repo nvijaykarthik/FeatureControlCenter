@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Col, Row, Button, InputGroup, FormControl,  Table} from 'react-bootstrap';
 import axios from "axios";
+import { SERVICE_DOMAIN } from './Constants';
 export default class FeatureSearch extends Component{
 
     state={
@@ -18,7 +19,7 @@ export default class FeatureSearch extends Component{
 
     getAllFeatures(){
       let self=this
-      axios.get("http://localhost:9000/api/getFeatures").then(
+      axios.get(SERVICE_DOMAIN+"/api/getFeatures").then(
           resp=>{
               console.log(resp.data)
               self.setState({featureList:resp.data,filteredFeatureList:resp.data})
@@ -52,7 +53,7 @@ export default class FeatureSearch extends Component{
                 <td>{dt.featureName}</td>
                 <td align="right">
                     <Button onClick={()=>this.props.selectedFeature(dt.featureName,dt.featureDescription)} variant="warning" id="button-addon2">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
+                        <i className="fas fa-arrow-alt-circle-right"></i>
                     </Button>
                 </td>
             </tr>);
@@ -68,13 +69,13 @@ export default class FeatureSearch extends Component{
                     <InputGroup className="mb-3">
                       <FormControl  placeholder="Filter" value={this.state.searchData} onChange={(e)=>this.textChangeEvt(e)}/>
                       <Button variant="info" id="button-addon2" onClick={()=>this.filterFeatureName()}>
-                        <i class="fas fa-search"></i>
+                        <i className="fas fa-search"></i>
                       </Button>
                       <Button variant="secondary" id="button-addon2" onClick={()=>this. getAllFeatures()}>
-                        <i class="fas fa-sync"></i>
+                        <i className="fas fa-sync"></i>
                       </Button>
                       <Button variant="primary" id="button-addon2"  onClick={()=>this.props.selectedFeature("NEW")}>
-                        <i class="fas fa-plus-circle"></i>
+                        <i className="fas fa-plus-circle"></i>
                       </Button>
                     </InputGroup>
                   </Col>

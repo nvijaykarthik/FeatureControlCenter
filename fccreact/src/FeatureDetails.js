@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Col, Row, Button, InputGroup, FormControl,  Table, Form, Alert} from 'react-bootstrap';
 import axios from "axios";
+import { SERVICE_DOMAIN } from './Constants';
 
 export default class FeatureDetails extends Component{
     state={
@@ -23,7 +24,6 @@ export default class FeatureDetails extends Component{
 
 
     componentDidUpdate(prevProps) {
-     
       if(this.props.selectedFeatureName!==prevProps.selectedFeatureName) 
       {
         let fname="";
@@ -41,6 +41,10 @@ export default class FeatureDetails extends Component{
     } 
 
     saveFeature(){
+      if (this.state.featureName === "") {
+        alert("Please Enter the feature name")
+        return
+      }
       let fname=this.state.featureName;
       let fdesc=this.state.featureDesc;
       this.setState({
@@ -50,7 +54,7 @@ export default class FeatureDetails extends Component{
         featureName:fname,
         featureDescription:fdesc
       }
-      axios.post("http://localhost:9000/api/saveFeatures",data).then(
+      axios.post(SERVICE_DOMAIN+"/api/saveFeatures",data).then(
         resp=>{
           fname=resp.data.featureName;
           fdesc=resp.data.featureDescription;
@@ -91,7 +95,7 @@ export default class FeatureDetails extends Component{
                       <Form.Control as="textarea" rows={3} onChange={(e)=>this.featureDescCng(e)} value={this.state.featureDesc}/>
                     </Form.Group>
                     <Button variant="primary" type="button" onClick={()=>this.saveFeature()}>
-                    <i class="far fa-save"></i>&nbsp;Save
+                    <i className="far fa-save"></i>&nbsp;Save
                     </Button>
                   </Form>
                 </Card.Body>

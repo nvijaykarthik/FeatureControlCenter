@@ -54,9 +54,9 @@ public class FeatureListService {
         return impactedService;
     }
 
-    public List<FeatureActivationConfig> getFeatureActivationConfig(String featureName){
-        List<FeatureActivationConfig> activationConfig= activationConfigRepo.findByFeatureName(featureName);
-        logger.debug("Impacted service {}",activationConfig);
+    public FeatureActivationConfig getFeatureActivationConfig(String featureName){
+        FeatureActivationConfig activationConfig= activationConfigRepo.findByFeatureName(featureName);
+        logger.debug("Action config {}",activationConfig);
         return activationConfig;
     }
 
