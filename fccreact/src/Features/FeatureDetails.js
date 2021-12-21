@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Button, InputGroup, FormControl,  Table, Form, Alert} from 'react-bootstrap';
+import { Card, Button, Form, Alert} from 'react-bootstrap';
 import axios from "axios";
-import { SERVICE_DOMAIN } from './Constants';
+import { SERVICE_DOMAIN, Spinner } from '../Constants';
 
 export default class FeatureDetails extends Component{
     state={
         featureName:"",
         featureDesc:"",
-        show:false
+        show:false,
+        showSpinner:false
     }
 
     featureNameCng(e){
@@ -48,8 +49,10 @@ export default class FeatureDetails extends Component{
       let fname=this.state.featureName;
       let fdesc=this.state.featureDesc;
       this.setState({
-        show:false
+        show:false,
+        showSpinner:true
      })
+     
       let data={
         featureName:fname,
         featureDescription:fdesc
@@ -61,11 +64,13 @@ export default class FeatureDetails extends Component{
           this.setState({
             featureName:fname,
             featureDesc:fdesc,
-            show:true
+            show:true,
+            showSpinner:false
          })
         },
         err=>{
           console.error(err)
+          this.setState({showSpinner:false})
         }
       )
     }
@@ -83,6 +88,7 @@ export default class FeatureDetails extends Component{
         return(
             <Card className="border-0">
                 <Card.Body>
+                {this.state.showSpinner ? <Spinner />:<div></div>}
                   <Card.Title><h4>Feature Details</h4></Card.Title>
                   {alert()}
                   <Form>

@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
-import { Card, Col, Row, Button, InputGroup, FormControl, Table, Form, Alert, Modal } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Card,Button, InputGroup, FormControl, Table, Form,  Modal } from 'react-bootstrap';
 import axios from "axios";
-import { SERVICE_DOMAIN } from './Constants';
+import { SERVICE_DOMAIN, Spinner } from '../Constants';
 
 
 
@@ -13,7 +13,8 @@ export default class ImpactedServices extends Component {
         impactedServices: [],
         servicename: "",
         impsearch:"",
-        filteredImpactedService:[]
+        filteredImpactedService:[],
+        showSpinner:false
     }
 
 
@@ -29,15 +30,17 @@ export default class ImpactedServices extends Component {
     }
 
     getImpactedService(fname){
+        this.setState({showSpinner:true})
         axios.get(SERVICE_DOMAIN+"/api/getImpactedServices?featureName=" + fname).then(
             resp => {
                 this.setState({
                     impactedServices: resp.data,
                     filteredImpactedService:resp.data,
-                    featureName:fname
+                    featureName:fname,
+                    showSpinner:false
                 })
             },
-            err => { console.error(err) }
+            err => { console.error(err);this.setState({showSpinner:false}) }
         )
     }
 
@@ -59,11 +62,11 @@ export default class ImpactedServices extends Component {
         this.setState({ impsearch: e.target.value })
     }
     saveImpactedService() {
-
         let fname = this.state.featureName;
         let serviceName = this.state.servicename;
         this.setState({
-            show: false
+            show: false,
+            showSpinner:true
         })
         let data = {
             featureName: fname,
@@ -73,31 +76,36 @@ export default class ImpactedServices extends Component {
             resp => {
                 console.log(resp.data)
                 this.setState({
-                    show: false
+                    show: false,
+                    showSpinner:false
                 })
                 this.getImpactedService(fname)
             },
             err => {
                 console.error(err)
+                this.setState({showSpinner:false})
             }
         )
     }
     onSearchClick(){
-        let list=this.state.filteredImpactedService
+      let lst=this.state.filteredImpactedService
       if(this.state.impsearch!==""){
-        list=this.state.impactedServices.filter(data=>data.serviceName.includes(this.state.impsearch));
+        lst=this.state.impactedServices.filter(data=>data.serviceName.includes(this.state.impsearch));
       }
-      this.setState({impactedServices:list})
+      this.setState({impactedServices:lst})
     }
     remove(dt){
         console.log(dt)
+        this.setState({showSpinner:true})
         axios.post(SERVICE_DOMAIN+"/api/removeImpactedService", dt).then(
             resp => {
                 console.log(resp.data)
                 this.getImpactedService(this.state.featureName)
+
             },
             err => {
                 console.error(err)
+                this.setState({showSpinner:false})
             }
         )
         
@@ -122,12 +130,13 @@ export default class ImpactedServices extends Component {
             <div>
                 <Card className="border-0">
                     <Card.Body>
+                    {this.state.showSpinner ? <Spinner />:<div></div>}
                         <Card.Title><h5>Impacted Service</h5></Card.Title>
                         <InputGroup className="mb-3">
                             <FormControl
                                 placeholder="Filter" onChange= {(e)=>this.searchOnchange(e)} value={this.state.impsearch}
                             />
-                            <Button variant="info" id="button-addon2" onClick={this.onSearchClick}>
+                            <Button variant="info" id="button-addon2" onClick={()=>this.onSearchClick()}>
                                 <i className="fas fa-search"></i>
                             </Button>
                             <Button variant="primary" id="button-addon2" onClick={this.handleShow}>

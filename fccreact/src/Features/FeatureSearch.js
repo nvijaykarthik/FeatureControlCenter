@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Card, Col, Row, Button, InputGroup, FormControl,  Table} from 'react-bootstrap';
 import axios from "axios";
-import { SERVICE_DOMAIN } from './Constants';
+import { SERVICE_DOMAIN, Spinner } from '../Constants';
+
+
+
 export default class FeatureSearch extends Component{
 
     state={
@@ -9,7 +12,8 @@ export default class FeatureSearch extends Component{
         selectedFeatureNm:"",
         filterFeatureName:"",
         filteredFeatureList:[],
-        searchData:""
+        searchData:"",
+        showSpinner:false
 
     }
 
@@ -19,10 +23,11 @@ export default class FeatureSearch extends Component{
 
     getAllFeatures(){
       let self=this
+      self.setState({showSpinner:true})
       axios.get(SERVICE_DOMAIN+"/api/getFeatures").then(
           resp=>{
               console.log(resp.data)
-              self.setState({featureList:resp.data,filteredFeatureList:resp.data})
+              self.setState({featureList:resp.data,filteredFeatureList:resp.data,showSpinner:false})
           },
           err=>{
               console.error(err)
@@ -59,9 +64,11 @@ export default class FeatureSearch extends Component{
             </tr>);
         });
       }
+      
         return(
             <Card>
               <Card.Body>
+               {this.state.showSpinner ? <Spinner />:<div></div>}
                 <Card.Title><h4>Feature List</h4></Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">List of Available features</Card.Subtitle>
                 <Row>
@@ -71,7 +78,7 @@ export default class FeatureSearch extends Component{
                       <Button variant="info" id="button-addon2" onClick={()=>this.filterFeatureName()}>
                         <i className="fas fa-search"></i>
                       </Button>
-                      <Button variant="secondary" id="button-addon2" onClick={()=>this. getAllFeatures()}>
+                      <Button variant="secondary" id="button-addon2" onClick={()=>this.getAllFeatures()}>
                         <i className="fas fa-sync"></i>
                       </Button>
                       <Button variant="primary" id="button-addon2"  onClick={()=>this.props.selectedFeature("NEW")}>

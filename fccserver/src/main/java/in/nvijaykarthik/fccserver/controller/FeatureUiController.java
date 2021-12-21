@@ -81,7 +81,7 @@ public class FeatureUiController {
     public String cronDescription(@RequestParam String cron) {
         CronDescriptor descriptor = CronDescriptor.instance();
         log.info("Incomming cron {}",cron);
-        String description = descriptor.describe(cronParser.parse(cron));
+        String description = descriptor.describe(cronParser.parse(cron));        
         return description;
     }
 }

@@ -1,11 +1,12 @@
 h1,h2,h3,h4,h5{
-  border-left: 4px #ffb900 dashed;
- /* border-bottom: solid 2px #00a4ef;*/
+ /* border-left: 4px #ffb900 dashed;
+  border-bottom: solid 2px #00a4ef;*/
   border-bottom-left-radius: 10px;
   letter-spacing: 3px;
   font-weight: 400;
   padding:0 5px 0 5px;
   margin-bottom: 1.3rem !important;
+  color:#412697;
 }
 H1::before,H2::before,H3::before,H4::before,H5::before{
   content:"\01F65A"

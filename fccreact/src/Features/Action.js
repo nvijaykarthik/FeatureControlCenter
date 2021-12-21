@@ -1,9 +1,7 @@
-import React, { Component, useState } from 'react';
-import { Card, Col, Row, Button, InputGroup, FormControl, Table, Form, Alert, Modal } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Card, Button, FormControl, Form,  } from 'react-bootstrap';
 import axios from "axios";
-import { SERVICE_DOMAIN } from './Constants';
-
-
+import { SERVICE_DOMAIN, Spinner } from '../Constants';
 
 export default class Action extends Component {
 
@@ -18,7 +16,9 @@ export default class Action extends Component {
     startDt:"",
     periodStatus: "",
     scheduleStatus: "",
-    cron: ""
+    cron: "",
+    cronDesc:"",
+    showSpinner:false
   }
 
   componentDidUpdate(prevProps) {
@@ -47,6 +47,7 @@ export default class Action extends Component {
   }
   loadAction(fname) {
     let self = this
+    self.setState({showSpinner:true})
     axios.get(SERVICE_DOMAIN + "/api/getActivationConfig?featureName=" + fname).then(
       resp => {
         console.log(resp);
@@ -57,6 +58,7 @@ export default class Action extends Component {
           self.setState({
             id: resp.data.id,
             featureName: fname,
+            showSpinner:false,
             actionType: resp.data.action,
             config: resp.data.configuration,
             scheduleStatus: status,
@@ -75,7 +77,8 @@ export default class Action extends Component {
             config: resp.data.configuration,
             periodStatus: status,
             startDt:stdt,
-            endDt:eddt
+            endDt:eddt,
+            showSpinner:false,
           })
 
         } else if (resp.data.action === 'ALWAYS') {
@@ -86,7 +89,8 @@ export default class Action extends Component {
             featureName: fname,
             actionType: resp.data.action,
             config: resp.data.configuration,
-            alyStatus: status
+            alyStatus: status,
+            showSpinner:false,
           })
         }else{
           self.setState({
@@ -100,11 +104,12 @@ export default class Action extends Component {
             startDt:"",
             periodStatus: "",
             scheduleStatus: "",
-            cron: ""
+            cron: "",
+            showSpinner:false,
           })
         }
       },
-      err => { console.error(err); })
+      err => { console.error(err);self.setState({showSpinner:false}) })
   }
 
   actionChange(e) {
@@ -115,6 +120,7 @@ export default class Action extends Component {
   }
 
   saveAction() {
+   
     if (this.state.featureName === "") {
       alert("Please save/select the feature and add the configuration")
       return
@@ -128,6 +134,7 @@ export default class Action extends Component {
       conf = '{"cron":"' + this.state.cron + '","status":"' + this.state.scheduleStatus + '"}';
     }
     let self = this;
+    self.setState({showSpinner:true})
     let data = {
       id: this.state.id,
       featureName: this.state.featureName,
@@ -140,11 +147,12 @@ export default class Action extends Component {
           id: resp.data.id,
           featureName: resp.data.featureName,
           actionType: resp.data.action,
-          config: resp.data.configuration
+          config: resp.data.configuration,
+          showSpinner:false
         })
         alert("Data saved Successfully")
       },
-      err => { console.error(err) }
+      err => { console.error(err); self.setState({showSpinner:false})}
     )
   }
 
@@ -187,6 +195,25 @@ export default class Action extends Component {
       cron: cron
     })
   }
+
+  evaluateCron(){
+    this.setState({showSpinner:true})
+    axios.get(SERVICE_DOMAIN + "/api/evaluateCron?cron="+this.state.cron).then(
+      resp => {
+        this.setState({
+          cronDesc:resp.data,
+          showSpinner:false
+        })
+      },
+      err => { 
+        this.setState({
+          cronDesc:"Invalid cron, Please verify(read details in via link)",
+          showSpinner:false
+        })
+        console.error(err) }
+    )
+  }
+
   render() {
     let content = () => {
       if (this.state.actionType === "ALWAYS") {
@@ -224,11 +251,13 @@ export default class Action extends Component {
         )
       } else if (this.state.actionType === "SCHEDULED") {
         return (<div>
-          <Form.Label>Cron Schedule</Form.Label>
+          <Form.Label>Cron Schedule (<a target="_blank" rel="noreferrer" href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">click for Details</a>)</Form.Label>
           <FormControl
             placeholder="Cron Configuration"
             onChange={(e) => this.cronChange(e)} value={this.state.cron}
+            onBlur={()=>this.evaluateCron()}
           />
+          <p style={{color:"#eb6404"}}>{this.state.cronDesc}</p>
           <Form.Label>Active</Form.Label>
           <Form.Select onChange={(e) => this.scheduleStatusChange(e)} value={this.state.scheduleStatus}>
             <option></option>
@@ -244,6 +273,7 @@ export default class Action extends Component {
       <div>
         <Card className="border-0">
           <Card.Body>
+          {this.state.showSpinner ? <Spinner />:<div></div>}
             <Card.Title><h5>Action Configuration</h5></Card.Title>
             <Form.Label>Action Type</Form.Label>
             <Form.Select onChange={(e) => this.actionChange(e)} value={this.state.actionType}>

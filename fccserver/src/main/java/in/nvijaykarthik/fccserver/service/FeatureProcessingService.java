@@ -1,9 +1,5 @@
 package in.nvijaykarthik.fccserver.service;
 
-import java.util.List;
-
-import org.springframework.util.CollectionUtils;
-
 import in.nvijaykarthik.fccserver.actionservice.FeatureActionProcessingFactory;
 import in.nvijaykarthik.fccserver.entity.FeatureActivationConfig;
 import in.nvijaykarthik.fccserver.repository.FeatureActivationConfigRepo;
