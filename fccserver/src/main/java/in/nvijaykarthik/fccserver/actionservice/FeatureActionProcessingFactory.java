@@ -10,11 +10,11 @@ public class FeatureActionProcessingFactory {
     private Map<String,FCCActionProcessor> actionMap= new HashMap<>();
 
     public FeatureActionProcessingFactory(){
-        actionMap.put("always",new FccAlwaysActionProcessor());
-        actionMap.put("period",new FccPeriodActionProcessor());
-        actionMap.put("scheduled",new FccScheduledActionProcessor());
-        actionMap.put("ond-traffic",new FccOnDemandTrafficActionProcessor());
-        actionMap.put("ond-priority",new FccOnDemandPriorityActionProcessor());
+        actionMap.put("ALWAYS",new FccAlwaysActionProcessor());
+        actionMap.put("PERIOD",new FccPeriodActionProcessor());
+        actionMap.put("SCHEDULED",new FccScheduledActionProcessor());
+        actionMap.put("OND-TRAFFIC",new FccOnDemandTrafficActionProcessor());
+        actionMap.put("OND-PRIORITY",new FccOnDemandPriorityActionProcessor());
     }
 
     public boolean process(FeatureActivationConfig config) {

@@ -1,5 +1,10 @@
 package in.nvijaykarthik.fccserver;
 
+import com.cronutils.model.CronType;
+import com.cronutils.model.definition.CronDefinition;
+import com.cronutils.model.definition.CronDefinitionBuilder;
+import com.cronutils.parser.CronParser;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -31,5 +36,12 @@ public class FccServerApplication {
 				registry.addMapping("/**");
 			}
 		};
+	}
+
+	@Bean
+	public CronParser cronParser(){
+		CronDefinition cd = CronDefinitionBuilder.instanceDefinitionFor(CronType.QUARTZ);
+        CronParser parser = new CronParser(cd);
+		return parser;
 	}
 }

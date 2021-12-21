@@ -3,6 +3,11 @@ package in.nvijaykarthik.fccserver.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.cronutils.descriptor.CronDescriptor;
+import com.cronutils.parser.CronParser;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +30,10 @@ public class FeatureUiController {
     FeatureCreationService featureCreationService;
     @Autowired
     FeatureListService featureListService; 
+    @Autowired
+    CronParser cronParser;
+
+    private static final Logger log = LoggerFactory.getLogger(FeatureUiController.class);
 
     @GetMapping("/getFeaturesPaged")
     public Iterable<Features> getFeaturesPaged(@RequestParam Integer page, @RequestParam(required = false) Integer size){
@@ -65,5 +74,14 @@ public class FeatureUiController {
     @PostMapping("/saveActivationConfig")
     public FeatureActivationConfig saveActiveConfguration(@RequestBody FeatureActivationConfig features){
         return featureCreationService.saveActiveConfguration(features);
+ 
+    }
+
+    @GetMapping("/evaluateCron")
+    public String cronDescription(@RequestParam String cron) {
+        CronDescriptor descriptor = CronDescriptor.instance();
+        log.info("Incomming cron {}",cron);
+        String description = descriptor.describe(cronParser.parse(cron));
+        return description;
     }
 }

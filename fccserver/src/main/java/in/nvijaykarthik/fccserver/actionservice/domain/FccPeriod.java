@@ -6,9 +6,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FccPeriod {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm",timezone = "Asia/Kolkata")
     private Date startdatetime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm",timezone = "Asia/Kolkata")
     private Date enddatetime;
     private String status;
 
