@@ -6,19 +6,25 @@
  */
 
 plugins {
-    id 'java-library' 
+	id 'org.springframework.boot' version '2.5.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
 }
 
-group = 'in.nvijaykarthik'
+group = 'org.nvijaykarthik'
 version = '0.0.1-SNAPSHOT'
-
 sourceCompatibility = 11
-
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-	  testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2' 
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.cronutils:cron-utils:9.1.6'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
 }

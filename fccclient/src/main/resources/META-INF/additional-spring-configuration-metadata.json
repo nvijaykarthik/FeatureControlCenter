@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "fccserver.config.service.url",
+    "type": "java.lang.String",
+    "description": "FCC Server URL to get toggle config by service name'"
+  },
+  {
+    "name": "fccserver.url",
+    "type": "java.lang.String",
+    "description": "FCC Server base URI part'"
+  },
+  {
+    "name": "fccserver.config.feature.url",
+    "type": "java.lang.String",
+    "description": "FCC server URL to get toggle config by feature name"
+  },
+  {
+    "name": "fccserver.config.feature.service.url",
+    "type": "java.lang.String",
+    "description": "FCC server URL to get toggle config by feature and service name"
+  }
+]}

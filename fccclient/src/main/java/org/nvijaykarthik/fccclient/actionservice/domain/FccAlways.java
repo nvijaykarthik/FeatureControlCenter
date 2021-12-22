@@ -1,4 +1,4 @@
-package org.nvijaykarthik.fccserver.actionservice.domain;
+package org.nvijaykarthik.fccclient.actionservice.domain;
 
 public class FccAlways {
     String status;

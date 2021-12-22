@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,73 +25,64 @@ import org.nvijaykarthik.fccserver.service.FeatureListService;
 @RestController
 @RequestMapping("/api")
 public class FeatureUiController {
-    
-    @Autowired
-    FeatureCreationService featureCreationService;
-    @Autowired
-    FeatureListService featureListService; 
-    @Autowired
-    CronParser cronParser;
 
-    private static final Logger log = LoggerFactory.getLogger(FeatureUiController.class);
+	@Autowired
+	FeatureCreationService featureCreationService;
+	@Autowired
+	FeatureListService featureListService;
+	@Autowired
+	CronParser cronParser;
 
-    @GetMapping("/getFeaturesPaged")
-    public Iterable<Features> getFeaturesPaged(@RequestParam Integer page, @RequestParam(required = false) Integer size){
-        return featureListService.getFeatures(page, size);
-    }
+	private static final Logger log = LoggerFactory.getLogger(FeatureUiController.class);
 
-    @GetMapping("/getFeatures")
-    public Iterable<Features> getFeatures(){
-        return featureListService.getFeatures();
-    }
+	@GetMapping("/getFeaturesPaged")
+	public Iterable<Features> getFeaturesPaged(@RequestParam Integer page,
+			@RequestParam(required = false) Integer size) {
+		return featureListService.getFeatures(page, size);
+	}
 
-    @GetMapping("/getImpactedServices")
-    public List<FeatureServiceXref> getImpactedServices(@RequestParam String featureName){
-        return featureListService.getImpactedServices(featureName);
-    }
+	@GetMapping("/getFeatures")
+	public Iterable<Features> getFeatures() {
+		return featureListService.getFeatures();
+	}
 
-    @GetMapping("/getActivationConfig")
-    public FeatureActivationConfig getFeatureActivationConfig(@RequestParam String featureName){
-        return featureListService.getFeatureActivationConfig(featureName);
-    }
-    
-    @GetMapping("/getActivationConfigByService")
-    public List<FeatureActivationConfig> getFeatureActivationConfigByService(@RequestParam String serviceName){
-        return featureListService.getServiceActivationConfig(serviceName);
-    }
-    
-    @GetMapping("/getActivationConfigByFeature/{featureName}")
-    public FeatureActivationConfig getFeatureActivationConfigByFeatureAndService(@PathVariable("featureName") String featureName, @RequestParam String serviceName){
-        return featureListService.getServiceAndFeatureActivationConfig(featureName,serviceName);
-    }
+	@GetMapping("/getImpactedServices")
+	public List<FeatureServiceXref> getImpactedServices(@RequestParam String featureName) {
+		return featureListService.getImpactedServices(featureName);
+	}
 
-    @PostMapping("/saveFeatures")
-    public Features saveFeature(@RequestBody Features features){
-        features.setCreatedDate(LocalDateTime.now());
-        return featureCreationService.saveFeature(features);
-    }
+	@GetMapping("/getActivationConfig")
+	public FeatureActivationConfig getFeatureActivationConfig(@RequestParam String featureName) {
+		return featureListService.getFeatureActivationConfig(featureName);
+	}
 
-    @PostMapping("/addImpactedService")
-    public FeatureServiceXref addImpactedService(@RequestBody  FeatureServiceXref features){
-        return featureCreationService.addImpactedService(features);
-    }
+	@PostMapping("/saveFeatures")
+	public Features saveFeature(@RequestBody Features features) {
+		features.setCreatedDate(LocalDateTime.now());
+		return featureCreationService.saveFeature(features);
+	}
 
-    @PostMapping("/removeImpactedService")
-    public void removeImpactedService(@RequestBody FeatureServiceXref features){
-        featureCreationService.removeImpactedService(features);
-    }
+	@PostMapping("/addImpactedService")
+	public FeatureServiceXref addImpactedService(@RequestBody FeatureServiceXref features) {
+		return featureCreationService.addImpactedService(features);
+	}
 
-    @PostMapping("/saveActivationConfig")
-    public FeatureActivationConfig saveActiveConfguration(@RequestBody FeatureActivationConfig features){
-        return featureCreationService.saveActiveConfguration(features);
- 
-    }
+	@PostMapping("/removeImpactedService")
+	public void removeImpactedService(@RequestBody FeatureServiceXref features) {
+		featureCreationService.removeImpactedService(features);
+	}
 
-    @GetMapping("/evaluateCron")
-    public String cronDescription(@RequestParam String cron) {
-        CronDescriptor descriptor = CronDescriptor.instance();
-        log.info("Incomming cron {}",cron);
-        String description = descriptor.describe(cronParser.parse(cron));
-        return description;
-    }
+	@PostMapping("/saveActivationConfig")
+	public FeatureActivationConfig saveActiveConfguration(@RequestBody FeatureActivationConfig features) {
+		return featureCreationService.saveActiveConfguration(features);
+
+	}
+
+	@GetMapping("/evaluateCron")
+	public String cronDescription(@RequestParam String cron) {
+		CronDescriptor descriptor = CronDescriptor.instance();
+		log.info("Incomming cron {}", cron);
+		String description = descriptor.describe(cronParser.parse(cron));
+		return description;
+	}
 }

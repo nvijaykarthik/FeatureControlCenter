@@ -12,20 +12,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import org.nvijaykarthik.fccserver.repository.FeatureActivationConfigRepo;
-import org.nvijaykarthik.fccserver.service.FeatureProcessingService;
-
 @SpringBootApplication
 @EnableJpaRepositories
 public class FccServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FccServerApplication.class, args);
-	}
-
-	@Bean
-	public FeatureProcessingService  featureProcessingService(FeatureActivationConfigRepo activationConfigRepo){
-		return new FeatureProcessingService(activationConfigRepo);
 	}
 
 	@Bean
@@ -39,9 +31,9 @@ public class FccServerApplication {
 	}
 
 	@Bean
-	public CronParser cronParser(){
+	public CronParser cronParser() {
 		CronDefinition cd = CronDefinitionBuilder.instanceDefinitionFor(CronType.QUARTZ);
-        CronParser parser = new CronParser(cd);
+		CronParser parser = new CronParser(cd);
 		return parser;
 	}
 }

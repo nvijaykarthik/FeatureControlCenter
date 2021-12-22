@@ -1,11 +1,11 @@
-package org.nvijaykarthik.fccserver.actionservice;
+package org.nvijaykarthik.fccclient.actionservice;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.nvijaykarthik.fccserver.actionservice.domain.FccPeriod;
+import org.nvijaykarthik.fccclient.actionservice.domain.FccPeriod;
 
 public class FccPeriodActionProcessor implements FCCActionProcessor {
 
