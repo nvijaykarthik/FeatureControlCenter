@@ -1,4 +1,4 @@
-package org.nvijaykarthik.fccserver.actionservice;
+package org.nvijaykarthik.fccclient.actionservice;
 
 import java.time.ZonedDateTime;
 
@@ -10,7 +10,7 @@ import com.cronutils.parser.CronParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.nvijaykarthik.fccserver.actionservice.domain.FccScheduled;
+import org.nvijaykarthik.fccclient.actionservice.domain.FccScheduled;
 
 public class FccScheduledActionProcessor implements FCCActionProcessor {
 
