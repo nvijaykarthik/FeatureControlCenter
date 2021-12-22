@@ -1,4 +1,4 @@
-package in.nvijaykarthik.fccserver;
+package org.nvijaykarthik.fccserver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
