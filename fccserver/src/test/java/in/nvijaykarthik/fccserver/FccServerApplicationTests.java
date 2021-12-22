@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import in.nvijaykarthik.fccserver.actionservice.FCCActionProcessor;
-import in.nvijaykarthik.fccserver.actionservice.FccScheduledActionProcessor;
+import org.nvijaykarthik.fccserver.actionservice.FCCActionProcessor;
+import org.nvijaykarthik.fccserver.actionservice.FccScheduledActionProcessor;
 
 class FccServerApplicationTests {
 
