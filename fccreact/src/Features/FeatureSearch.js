@@ -81,7 +81,7 @@ export default class FeatureSearch extends Component{
                       <Button variant="secondary" id="button-addon2" onClick={()=>this.getAllFeatures()}>
                         <i className="fas fa-sync"></i>
                       </Button>
-                      <Button variant="primary" id="button-addon2"  onClick={()=>this.props.selectedFeature("NEW")}>
+                      <Button variant="nav" id="button-addon2"  onClick={()=>this.props.selectedFeature("NEW")}>
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </InputGroup>

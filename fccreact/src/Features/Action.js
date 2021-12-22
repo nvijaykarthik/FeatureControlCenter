@@ -251,7 +251,7 @@ export default class Action extends Component {
         )
       } else if (this.state.actionType === "SCHEDULED") {
         return (<div>
-          <Form.Label>Cron Schedule (<a target="_blank" rel="noreferrer" href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">click for Details</a>)</Form.Label>
+          <Form.Label>Cron Schedule (<a target="_blank" rel="noreferrer" href="https://github.com/nvijaykarthik/FeatureControlCenter/wiki/CRON">click for Details</a>)</Form.Label>
           <FormControl
             placeholder="Cron Configuration"
             onChange={(e) => this.cronChange(e)} value={this.state.cron}

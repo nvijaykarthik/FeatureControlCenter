@@ -139,7 +139,7 @@ export default class ImpactedServices extends Component {
                             <Button variant="info" id="button-addon2" onClick={()=>this.onSearchClick()}>
                                 <i className="fas fa-search"></i>
                             </Button>
-                            <Button variant="primary" id="button-addon2" onClick={this.handleShow}>
+                            <Button variant="nav" id="button-addon2" onClick={this.handleShow}>
                                 <i className="fas fa-plus-circle"></i>
                             </Button>
                         </InputGroup>

@@ -101,3 +101,8 @@ code {
 .bg-nav{
   background:#412697
 }
+
+.btn-nav{
+  background-color:#412697 !important;
+  color:white !important
+}

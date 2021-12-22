@@ -100,7 +100,7 @@ export default class FeatureDetails extends Component{
                       <Form.Label>Feature Description</Form.Label>
                       <Form.Control as="textarea" rows={3} onChange={(e)=>this.featureDescCng(e)} value={this.state.featureDesc}/>
                     </Form.Group>
-                    <Button variant="primary" type="button" onClick={()=>this.saveFeature()}>
+                    <Button variant="nav" type="button" onClick={()=>this.saveFeature()}>
                     <i className="far fa-save"></i>&nbsp;Save
                     </Button>
                   </Form>
