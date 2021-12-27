@@ -19,6 +19,7 @@ public class FeatureActionProcessingFactory {
 
 	public boolean process(FeatureActivationConfig config) {
 		boolean activeFlag = false;
+		if (config ==null) return activeFlag; 
 		FCCActionProcessor processor = actionMap.get(config.getAction());
 		activeFlag = processor.processAction(config.getConfiguration());
 		return activeFlag;
